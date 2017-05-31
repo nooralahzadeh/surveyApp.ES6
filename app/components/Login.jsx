@@ -12,16 +12,16 @@ export var Login = React.createClass({
   render() {
     return (
       <div>
-        <h1 className="page-title">Todo App</h1>
+        <h1 className="page-title">Survey App</h1>
 
         <div className="row">
           <div className="columns small-centered small-10 medium-6 large-4">
             <div className="callout callout-auth">
               <h3>Login</h3>
               <p>
-                Login with GitHub account below.
+                Login with Google account below.
               </p>
-              <button className="button" onClick={this.onLogin}>Login With GitHub</button>
+              <button className="button" onClick={this.onLogin}>Login With Google</button>
             </div>
           </div>
         </div>

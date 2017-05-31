@@ -1,10 +1,12 @@
 import firebase from 'firebase';
 
 var config = {
-  apiKey: "AIzaSyD_9fsTH8TiSdhYGD_4mzGbzwDxA7vW5w0",
-  authDomain: "mead-todo-app-23821.firebaseapp.com",
-  databaseURL: "https://mead-todo-app-23821.firebaseio.com",
-  storageBucket: "mead-todo-app-23821.appspot.com",
+
+  apiKey: "AIzaSyB7avWxClQJeZ_ZtFYIrH5MRFP3pLkbOec",
+    authDomain: "surveyapp-f200f.firebaseapp.com",
+    databaseURL: "https://surveyapp-f200f.firebaseio.com",
+    storageBucket: "surveyapp-f200f.appspot.com",
+
 };
 firebase.initializeApp(config);
 

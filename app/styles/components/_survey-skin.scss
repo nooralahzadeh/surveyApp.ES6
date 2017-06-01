@@ -1,0 +1,23 @@
+body {
+  background-color: #fff;
+
+  .btn-green {
+    background-color: #1ab394;
+    color: #fff;
+    border-radius: 3px;
+
+    &:hover, &:focus {
+      background-color: #18a689;
+      color: #fff;
+    }
+  }
+
+  .my-rating {
+    font-size: 12px;
+  }
+
+  .panel-footer {
+      background-color: #fff;
+      text-align: right;
+  }
+}

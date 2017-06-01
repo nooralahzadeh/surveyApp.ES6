@@ -2,6 +2,8 @@ import React from 'react';
 import {Route, Router, IndexRoute, hashHistory} from 'react-router';
 
 import TodoApp from 'TodoApp';
+import SurveySelection from 'SurveySelection';
+import MySurvey from 'MySurvey';
 import Login from 'Login';
 import firebase from 'app/firebase/';
 
@@ -14,7 +16,7 @@ var requireLogin = (nextState, replace, next) => {
 
 var redirectIfLoggedIn = (nextState, replace, next) => {
   if (firebase.auth().currentUser) {
-    replace('/todos');
+    replace('/surveys');
   }
 
   next();
@@ -23,7 +25,8 @@ var redirectIfLoggedIn = (nextState, replace, next) => {
 export default (
   <Router history={hashHistory}>
     <Route path="/">
-      <Route path="todos" component={TodoApp} onEnter={requireLogin}/>
+      <Route path="surveys" component={SurveySelection} onEnter={requireLogin}/>
+      <Route path="survey" component={MySurvey} onEnter={requireLogin}/>
       <IndexRoute component={Login} onEnter={redirectIfLoggedIn}/>
     </Route>
   </Router>

@@ -123,3 +123,75 @@ export var startLogout = () => {
     });
   };
 };
+
+
+export var setSurveyJsonName = (SurveyJsonName) => {
+  return {
+    type: 'SET_SURVEY_JSON_NAME',
+    SurveyJsonName
+  };
+};
+
+
+export var addSurvey = (discipline,data) => {
+  return {
+    type: 'ADD_SURVEY',
+    discipline,
+    data
+  };
+};
+
+export var startAddSurvey = (discipline,data) => {
+  return (dispatch, getState) => {
+    var survey = {
+      discipline,
+      data,
+      createdAt: moment().unix()
+    };
+    var uid = getState().auth.uid;
+    var surveyRef = firebaseRef.child(`users/${uid}/surveys`).push(survey);
+
+    return surveyRef.then(() => {
+      dispatch(addSurvey({
+        ...survey,
+        id: surveyRef.key
+      }));
+    });
+  };
+};
+
+
+export var addSurveys = (surveys) => {
+  return {
+    type: 'ADD_SURVEYS',
+    surveys
+  };
+};
+
+export var startAddSurveys = () => {
+  return (dispatch, getState) => {
+    var uid = getState().auth.uid;
+    var surveysRef = firebaseRef.child(`users/${uid}/surveys`);
+
+    return surveysRef.once('value').then((snapshot) => {
+      var surveys = snapshot.val() || {};
+      var parsedSurveys = [];
+
+      Object.keys(surveys).forEach((surveyId) => {
+        parsedSurveys.push({
+          id: surveyId,
+          ...surveys[surveyId]
+        });
+      });
+      dispatch(addSurveys(parsedSurveys));
+    });
+  };
+};
+
+
+export var setData = (data) => {
+  return {
+    type: 'SET_DATA',
+    data
+  };
+};

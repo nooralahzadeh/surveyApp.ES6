@@ -14,6 +14,8 @@ module.exports = {
   entry: [
     'script!jquery/dist/jquery.min.js',
     'script!foundation-sites/dist/foundation.min.js',
+    'script!bootstrap/dist/js/bootstrap.min.js',
+    // 'script!bootstrap-material-design/dist/js/material.min.js',
     './app/app.jsx'
   ],
   externals: {
@@ -49,6 +51,8 @@ module.exports = {
     root: __dirname,
     modulesDirectories: [
       'node_modules',
+      'node_modules/bootstrap/dist/css',
+      // 'node_modules/bootstrap-material-design/dist/css',
       './app/components',
       './app/api'
     ],
@@ -71,6 +75,18 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/
       }
+      ,{
+       test: /\.json$/,
+       loader: "json-loader"
+     },
+     {
+				test: /\.css$/,
+        			loader: "style-loader!css-loader"
+			},
+			{
+				test: /\.(woff|woff2|eot|ttf|svg)$/,
+        		loader: "url"
+			}
     ]
   },
   sassLoader: {

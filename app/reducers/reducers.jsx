@@ -61,3 +61,44 @@ export var authReducer = (state = {}, action) => {
       return state;
   }
 };
+
+
+export var surveyJsonNameReducer = (state = '', action) => {
+  switch (action.type) {
+    case 'SET_SURVEY_JSON_NAME':
+      return action.SurveyJsonName;
+    default:
+      return state;
+  };
+};
+
+
+export var surveysReducer = (state = [], action) => {
+  switch (action.type) {
+    case 'ADD_SURVEY':
+      return [
+        ...state,
+        action.disipline,
+        action.data
+      ];
+      case 'ADD_SURVEYS':
+        return [
+          ...state,
+          ...action.surveys
+        ];
+    case 'LOGOUT':
+      return [];
+    default:
+      return state;
+  }
+};
+
+
+export var setDataReducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'SET_DATA':
+      return action.data;
+    default:
+      return state;
+  };
+};

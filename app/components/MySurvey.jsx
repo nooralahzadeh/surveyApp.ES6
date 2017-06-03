@@ -5,6 +5,8 @@ import React, {Component} from 'react';
 import * as Survey from 'survey-react';
 import * as Redux from 'react-redux';
 import * as actions from 'actions';
+var {hashHistory} = require('react-router');
+
 
 
 class MySurvey extends Component {
@@ -14,20 +16,24 @@ class MySurvey extends Component {
       var {dispatch} = this.props;
       e.preventDefault();
       dispatch(actions.startLogout());
+      hashHistory.push('/')
     }
 
 sendDataToServer(survey) {
-    var resultAsString = JSON.stringify(survey.data);
     console.log(survey.data);
-    var {dispatch,surveyJson} = this.props;
-    dispatch(actions.startAddSurvey(surveyJson,survey.data));
+    var {dispatch,discipline,surveys} = this.props;
+    var current_survey = surveys.filter(element=> {if (element.discipline === discipline) return element});
+    var id =current_survey[0].id
+    dispatch(actions.startSubmitSurvey(id,survey.data,true));
   }
 
   savePartailToServer(survey) {
        var resultAsString = JSON.stringify(survey.data);
-       console.log(survey.data);
-       var {dispatch,surveyJson} = this.props;
-       dispatch(actions.startAddSurvey(surveyJson,survey.data));
+       var {dispatch,surveys,discipline} = this.props;
+       var current_survey = surveys.filter(element=> {if (element.discipline === discipline) return element});
+       var id =current_survey[0].id
+        dispatch(actions.startUpdate(id,survey.data));
+        alert("I am here!");
        //dispatch(actions.startAddSurveys());
   }
 
@@ -35,22 +41,22 @@ sendDataToServer(survey) {
 
   render() {
 
-    var{surveyJson,data}= this.props;
-    const surveyJSON= require(`../../data/${surveyJson}.json`);
+    var {discipline,data} = this.props;
+    const survey_JSON= require(`../../data/${discipline}.json`);
   // Survey.defaultBootstrapCss.navigationButton = "btn btn-green";
   // Survey.Survey.cssType = "bootstrap";
   Survey.defaultBootstrapMaterialCss.navigationButton = "btn btn-green";
   Survey.defaultBootstrapMaterialCss.rating.item = "btn btn-default my-rating";
   Survey.Survey.cssType = "bootstrapmaterial";
-    var survey = new Survey.Model(surveyJSON);
-    var myCss = {
-        matrix: {root: "table table-striped", }
-      };
-    survey.showProgressBar = "top";
-    survey.sendResultOnPageNext=true;
-    //survey.surveyId='ffe8fb85-4d48-49cc-9eac-b729803a4721';
-    //survey.surveyPostId='a155f514-e1e2-4958-8b1b-330dc4697b66';
-    survey.data=data;
+  var mdl = new Survey.Model(survey_JSON);
+  mdl.showProgressBar = "top";
+  mdl.sendResultOnPageNext= true;
+  //onComplete={this.sendDataToServer.bind(this)}
+
+
+  //dispatch(actions.startUpdateSurvey(id,mdl.data));
+  //console.log(mdl.data);
+
     return (
       <div>
         <div className="page-actions">
@@ -77,14 +83,13 @@ sendDataToServer(survey) {
               <div className="small-3 large-3 columns "><h6></h6></div>
             </div>
           </div>
-
     <hr/>
 
   <div className="row align-center">
           <div className="columns small-3 ">
               <div className="container">
                 <div className="survey-skin">
-                  <Survey.Survey model={survey}  css={myCss} onPartialSend={this.savePartailToServer.bind(this)} onComplete={this.sendDataToServer.bind(this)}/>
+                  <Survey.Survey model={mdl} data={data} onPartialSend ={this.savePartailToServer.bind(this)} onComplete={this.sendDataToServer.bind(this)}  />
                 </div>
               </div>
             </div>
@@ -99,11 +104,8 @@ sendDataToServer(survey) {
 
 export default Redux.connect(
   (state) => {
-    return {
-      auth: state.auth,
-      surveyJson: state.surveyJson,
-      surveys:state.surveys,
-      data:state.data
-    }
+
+    return  state;
+
   }
 )(MySurvey);

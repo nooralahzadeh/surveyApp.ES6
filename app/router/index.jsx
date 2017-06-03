@@ -18,7 +18,6 @@ var redirectIfLoggedIn = (nextState, replace, next) => {
   if (firebase.auth().currentUser) {
     replace('/surveys');
   }
-
   next();
 };
 

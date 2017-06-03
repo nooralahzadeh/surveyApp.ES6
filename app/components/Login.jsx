@@ -11,7 +11,6 @@ export class Login extends React.Component{
   }
   onLogin() {
     var {dispatch} = this.props;
-
     dispatch(actions.startLogin());
   }
   render() {

@@ -22,29 +22,36 @@ class SurveySelection extends Component{
 
   handleFormSubmit(e) {
     e.preventDefault();
+
     console.log('NEXT');
-    var{surveyJson,surveys, dispatch}= this.props;
-    console.log(surveyJson);
-    var user_descipline_data = surveys.filter(element=> {if (element.discipline === surveyJson) return element});
+    var{discipline,surveys, dispatch}= this.props;
+
+    console.log(discipline);
+
+    var user_descipline_data = surveys.filter(element=> {if (element.discipline === discipline) return element});
     console.log(user_descipline_data);
     if (user_descipline_data.length>0){
-      var lastUpdate=Math.max.apply(Math,user_descipline_data.map(function(item){return item.createdAt;}));
-      console.log(lastUpdate);
-      var data = user_descipline_data.filter(element=> {if (element.createdAt === lastUpdate) return element});
-      console.log(data[0].data);
-      dispatch(actions.setData(data[0].data));
-      } else {
-      dispatch(actions.setData({}));
-     }
+        //   var lastUpdate=Math.max.apply(Math,user_descipline_data.map(function(item){return item.createdAt;}));
+         console.log('here');
+         //var data = user_descipline_data.filter(element=> {if (element.createdAt === lastUpdate) return element});
+         console.log(user_descipline_data[0].data);
+            if(user_descipline_data[0].data!==undefined){
+               dispatch(actions.setData(user_descipline_data[0].data));
+             }
+      }else{
+        dispatch(actions.startAddSurvey(discipline,{}));
+      }
 
+     //update state with added survey
+      dispatch(actions.startAddSurveys());
+         hashHistory.push('/survey');
+       }
 
-    hashHistory.push('/survey');
-
-  }
   onLogout(e) {
       var {dispatch} = this.props;
       e.preventDefault();
       dispatch(actions.startLogout());
+      hashHistory.push('/');
     }
 
 
@@ -184,9 +191,6 @@ SurveySelection.defaultProps={
 
 export default Redux.connect(
   (state) => {
-    return {
-      surveyJson: state.surveyJson,
-      surveys:state.surveys
-    }
+    return state;
   }
 )(SurveySelection);

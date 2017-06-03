@@ -9,7 +9,7 @@ export var configure = (initialState = {}) => {
     showCompleted: showCompletedReducer,
     todos: todosReducer,
     auth: authReducer,
-    surveyJson:surveyJsonNameReducer,
+    discipline:surveyJsonNameReducer,
     surveys:surveysReducer,
     data:setDataReducer
   });

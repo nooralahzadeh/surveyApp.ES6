@@ -133,11 +133,10 @@ export var setSurveyJsonName = (SurveyJsonName) => {
 };
 
 
-export var addSurvey = (discipline,data) => {
+export var addSurvey = (survey) => {
   return {
     type: 'ADD_SURVEY',
-    discipline,
-    data
+    survey
   };
 };
 
@@ -146,7 +145,8 @@ export var startAddSurvey = (discipline,data) => {
     var survey = {
       discipline,
       data,
-      createdAt: moment().unix()
+      createdAt: moment().unix(),
+      completed:false
     };
     var uid = getState().auth.uid;
     var surveyRef = firebaseRef.child(`users/${uid}/surveys`).push(survey);
@@ -172,11 +172,9 @@ export var startAddSurveys = () => {
   return (dispatch, getState) => {
     var uid = getState().auth.uid;
     var surveysRef = firebaseRef.child(`users/${uid}/surveys`);
-
     return surveysRef.once('value').then((snapshot) => {
       var surveys = snapshot.val() || {};
       var parsedSurveys = [];
-
       Object.keys(surveys).forEach((surveyId) => {
         parsedSurveys.push({
           id: surveyId,
@@ -193,5 +191,58 @@ export var setData = (data) => {
   return {
     type: 'SET_DATA',
     data
+  };
+};
+
+
+
+export var updateSurvey = (id, updates) => {
+  console.log(updates);
+  return {
+    type: 'UPDATE_SURVEY',
+    id,
+    updates
+  };
+};
+
+
+
+export var startUpdate = (id,data) => {
+
+  return (dispatch, getState) => {
+    var uid = getState().auth.uid;
+    var surveyRef = firebaseRef.child(`users/${uid}/surveys/${id}`);
+    var updates = {
+      data:data
+      //completedAt: completed ? moment().unix() : null
+    };
+    return surveyRef.update(updates).then(() => {
+      dispatch(updateSurvey(id, updates));
+    });
+  };
+};
+
+
+export var submitSurvey = (id, dataToSave) => {
+  return {
+    type: 'SUBMIT_SURVEY',
+    id,
+    dataToSave
+  };
+};
+
+
+export var startSubmitSurvey = (id, data,completed) => {
+  return (dispatch, getState) => {
+    var uid = getState().auth.uid;
+    var surveyRef = firebaseRef.child(`users/${uid}/surveys/${id}`);
+    var dataToSave = {
+      data:data,
+      completed:completed,
+      completedAt: moment().unix()
+    };
+    return surveyRef.update(dataToSave).then(() => {
+      dispatch(submitSurvey(id, dataToSave));
+    });
   };
 };

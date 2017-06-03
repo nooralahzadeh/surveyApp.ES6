@@ -67,6 +67,8 @@ export var surveyJsonNameReducer = (state = '', action) => {
   switch (action.type) {
     case 'SET_SURVEY_JSON_NAME':
       return action.SurveyJsonName;
+   case 'LOGOUT':
+      return '';
     default:
       return state;
   };
@@ -77,15 +79,25 @@ export var surveysReducer = (state = [], action) => {
   switch (action.type) {
     case 'ADD_SURVEY':
       return [
-        ...state,
-        action.disipline,
-        action.data
+        ...state
       ];
-      case 'ADD_SURVEYS':
+    case 'ADD_SURVEYS':
         return [
           ...state,
           ...action.surveys
-        ];
+    ];
+    case 'UPDATE_SURVEY':
+      console.log(state);
+          return state.map((surveyItem) => {
+            if (surveyItem.id === action.id) {
+              return {
+                ...surveyItem,
+                ...action.updates
+              };
+            } else {
+              return surveyItem;
+            }
+          });
     case 'LOGOUT':
       return [];
     default:
@@ -98,6 +110,8 @@ export var setDataReducer = (state = {}, action) => {
   switch (action.type) {
     case 'SET_DATA':
       return action.data;
+    case 'LOGOUT':
+      return [];
     default:
       return state;
   };

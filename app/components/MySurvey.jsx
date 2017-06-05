@@ -57,7 +57,8 @@ onStepChange(stepNumber){
     var {dispatch,partaialAnswer,surveys,discipline} = this.props;
     var current_survey = surveys.filter(element=> {if (element.discipline === discipline) return element});
     var id =current_survey[0].id;
-    if(partaialAnswer.length>0){
+    console.log(partaialAnswer);
+    if(partaialAnswer.rows!== undefined){
     var partialResult={title:partaialAnswer.title, rows:partaialAnswer.rows};
     dispatch(actions.startUpdate(id,partialResult));
     }

@@ -1,7 +1,7 @@
 import * as redux from 'redux';
 import thunk from 'redux-thunk';
 
-import {searchTextReducer, showCompletedReducer, todosReducer, authReducer, surveyJsonNameReducer,surveysReducer, setDataReducer} from 'reducers'
+import {searchTextReducer, showCompletedReducer, todosReducer, authReducer, surveyJsonNameReducer,surveysReducer, setDataReducer, updateQuestionReducer,stepChangeReducer} from 'reducers'
 
 export var configure = (initialState = {}) => {
   var reducer = redux.combineReducers({
@@ -11,7 +11,9 @@ export var configure = (initialState = {}) => {
     auth: authReducer,
     discipline:surveyJsonNameReducer,
     surveys:surveysReducer,
-    data:setDataReducer
+    data:setDataReducer,
+    partaialAnswer:updateQuestionReducer,
+    step:stepChangeReducer,
   });
 
   var store = redux.createStore(reducer, initialState, redux.compose(

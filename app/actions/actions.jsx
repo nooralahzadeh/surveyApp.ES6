@@ -195,6 +195,19 @@ export var setData = (data) => {
 };
 
 
+export var updateQuestion = (question) => {
+  return {
+    type: 'UPDATE_QUESTION',
+    question,
+  };
+};
+
+export var onStepChange = (step) => {
+    return {
+      type:'ON_STEP_CHANGE',
+      step
+    };
+};
 
 export var updateSurvey = (id, updates) => {
   console.log(updates);

@@ -116,3 +116,25 @@ export var setDataReducer = (state = {}, action) => {
       return state;
   };
 };
+
+export var updateQuestionReducer = (state = [], action) => {
+  switch (action.type) {
+    case 'UPDATE_QUESTION':
+      return action.question;
+    case 'LOGOUT':
+      return [];
+    case 'UPDATE_SURVEY':
+        return [];
+    default:
+      return state;
+  };
+};
+
+export var stepChangeReducer = (state = '', action) => {
+  switch (action.type) {
+    case 'ON_STEP_CHANGE':
+      return action.step;
+    default:
+      return state;
+  };
+};

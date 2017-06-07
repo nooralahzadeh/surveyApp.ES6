@@ -71,7 +71,7 @@ class SurveySelection extends Component{
             <form onSubmit={this.handleFormSubmit.bind(this)}>
               <div class="radio">
                   <label>
-                    <input type="radio" value="all" checked={this.state.selectedOption === 'all'} onChange={this.handleOptionChange.bind(this)} />
+                    <input type="radio" value="all_disciplines" checked={this.state.selectedOption === 'all_disciplines'} onChange={this.handleOptionChange.bind(this)} />
                     All Disciplines
                   </label>
                   </div>

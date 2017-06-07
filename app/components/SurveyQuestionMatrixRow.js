@@ -16,7 +16,7 @@ class SurveyQuestionMatrixRow extends Component{
         this.row.value = event.target.value;
         this.setState({ value: this.row.value });
         var {dispatch} = this.props;
-        dispatch(actions.updateQuestion(this.question));
+        dispatch(actions.updateAnswer(this.question));
     }
 
   // componentWillReceiveProps(nextProps) {

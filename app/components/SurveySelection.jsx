@@ -31,8 +31,7 @@ class SurveySelection extends Component{
     var user_descipline_data = surveys.filter(element=> {if (element.discipline === discipline) return element});
     console.log(user_descipline_data);
     if (user_descipline_data.length>0){
-        //   var lastUpdate=Math.max.apply(Math,user_descipline_data.map(function(item){return item.createdAt;}));
-         console.log('here');
+        //   var lastUpdate=Math.max.apply(Math,user_descipline_data.map(function(item){return item.createdAt;}))
          //var data = user_descipline_data.filter(element=> {if (element.createdAt === lastUpdate) return element});
          console.log(user_descipline_data[0].data);
             if(user_descipline_data[0].data!==undefined){

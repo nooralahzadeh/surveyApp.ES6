@@ -195,9 +195,9 @@ export var setData = (data) => {
 };
 
 
-export var updateQuestion = (question) => {
+export var updateAnswer = (question) => {
   return {
-    type: 'UPDATE_QUESTION',
+    type: 'UPDATE_ANSWER',
     question,
   };
 };
@@ -209,29 +209,78 @@ export var onStepChange = (step) => {
     };
 };
 
-export var updateSurvey = (id, updates) => {
-  console.log(updates);
+export var updateQuestion = (id,update) => {
   return {
-    type: 'UPDATE_SURVEY',
+    type: 'UPDATE_QUESTION',
     id,
-    updates
+    update
+  };
+};
+
+export var addQuestion = (id, question) => {
+  return {
+    type: 'ADD_QUESTION',
+    id,
+    question
   };
 };
 
 
 
-export var startUpdate = (id,data) => {
-
+export var startAddUpdate = (id,title,rows) => {
   return (dispatch, getState) => {
     var uid = getState().auth.uid;
-    var surveyRef = firebaseRef.child(`users/${uid}/surveys/${id}`);
-    var updates = {
-      data:data
-      //completedAt: completed ? moment().unix() : null
-    };
-    return surveyRef.update(updates).then(() => {
-      dispatch(updateSurvey(id, updates));
+    var exDataRef = firebaseRef.child(`users/${uid}/surveys/${id}/data`);
+    exDataRef.once('value').then((snapshot) => {
+      var exQuestions=[];
+      var exData = snapshot.val() ||{};
+      Object.keys(exData).forEach((i) => {
+          var el={
+              id:i,
+              title:exData[i].title,
+              rows:exData[i].rows
+            };
+          exQuestions.push(el);
+      });
+      console.log(exQuestions);
+      var filtered=exQuestions.filter(function (q) {
+            return q.title===title;
+          });
+
+      console.log(filtered);
+      if(filtered.length>0){
+        var qid=filtered[0].id;
+        console.log(qid);
+        var questionRef=firebaseRef.child(`users/${uid}/surveys/${id}/data/${qid}`)
+
+        var updates = {
+          rows
+        };
+        return questionRef.update(updates).then(() => {
+        dispatch(updateQuestion(id,{title,rows}));
+          });
+
+      }
+      else
+       {
+         console.log('creat new question');
+        var newQuestion = {
+          title,
+          rows
+        };
+
+        var surveyRef = firebaseRef.child(`users/${uid}/surveys/${id}/data`).push(newQuestion);
+        return surveyRef.then(() => {
+          dispatch(addQuestion(id, newQuestion));
+        });
+      }
     });
+
+
+
+//
+  // console.log(filtered);
+
   };
 };
 
@@ -245,17 +294,66 @@ export var submitSurvey = (id, dataToSave) => {
 };
 
 
-export var startSubmitSurvey = (id, data,completed) => {
+export var startSubmitSurvey = (id,title,rows,completed) => {
   return (dispatch, getState) => {
     var uid = getState().auth.uid;
-    var surveyRef = firebaseRef.child(`users/${uid}/surveys/${id}`);
-    var dataToSave = {
-      data:data,
-      completed:completed,
-      completedAt: moment().unix()
-    };
-    return surveyRef.update(dataToSave).then(() => {
-      dispatch(submitSurvey(id, dataToSave));
-    });
-  };
-};
+
+    var exDataRef = firebaseRef.child(`users/${uid}/surveys/${id}/data`);
+    exDataRef.once('value').then((snapshot) => {
+      var exQuestions=[];
+      var exData = snapshot.val() ||{};
+      Object.keys(exData).forEach((i) => {
+          var el={
+              id:i,
+              title:exData[i].title,
+              rows:exData[i].rows
+            };
+          exQuestions.push(el);
+      });
+      console.log(exQuestions);
+      var filtered=exQuestions.filter(function (q) {
+            return q.title===title;
+          });
+
+      console.log(filtered);
+      if(filtered.length>0){
+        var qid=filtered[0].id;
+        console.log(qid);
+        var questionRef=firebaseRef.child(`users/${uid}/surveys/${id}/data/${qid}`)
+
+        var updates = {
+          rows
+        };
+        return questionRef.update(updates).then(() => {
+        dispatch(updateQuestion(id,{title,rows}));
+          });
+
+      }
+      else
+       {
+         console.log('creat new question');
+        var newQuestion = {
+          title,
+          rows
+        };
+
+        var surveyRef = firebaseRef.child(`users/${uid}/surveys/${id}/data`).push(newQuestion);
+        return surveyRef.then(() => {
+          dispatch(addQuestion(id, newQuestion));
+        });
+        };
+      });
+
+      var ref = firebaseRef.child(`users/${uid}/surveys/${id}`);
+      var updates = {
+        completed,
+        completedAt: completed ? moment().unix() : null
+      };
+
+    ref.update(updates).then(() => {
+        console.log("submitted");
+      });
+
+
+    }
+}

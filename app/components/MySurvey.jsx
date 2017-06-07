@@ -11,6 +11,7 @@ var {hashHistory} = require('react-router');
 
 
 
+
 class MySurvey extends Component {
 
   constructor(props){
@@ -44,27 +45,33 @@ sendDataToServer(survey) {
        var id =current_survey[0].id;
        dispatch(actions.startUpdate(id,survey.data));
        alert(survey.currentPageNo);
-
        //dispatch(actions.startAddSurveys());
   }
 
+onSubmit(){
+  var{dispatch,partaialAnswer,surveys,discipline}=this.props;
+  var current_survey = surveys.filter(element=> {if (element.discipline === discipline) return element});
+  var id =current_survey[0].id;
+  if(partaialAnswer.rows!== undefined){
+  dispatch(actions.startSubmitSurvey(id,partaialAnswer.title,partaialAnswer.rows,true));
+  }
+  hashHistory.push('/thanks');
+
+}
 
 onStepChange(stepNumber){
   var{dispatch}=this.props;
   dispatch(actions.onStepChange(stepNumber));
 }
-  stepShouldChange() {
+
+stepShouldChange() {
     var {dispatch,partaialAnswer,surveys,discipline} = this.props;
     var current_survey = surveys.filter(element=> {if (element.discipline === discipline) return element});
     var id =current_survey[0].id;
-    console.log(partaialAnswer);
     if(partaialAnswer.rows!== undefined){
-    var partialResult={title:partaialAnswer.title, rows:partaialAnswer.rows};
-    dispatch(actions.startUpdate(id,partialResult));
+    dispatch(actions.startAddUpdate(id,partaialAnswer.title,partaialAnswer.rows));
     }
     return true;
-
-
     }
 
 
@@ -82,7 +89,7 @@ onStepChange(stepNumber){
   // mdl.sendResultOnPageNext= true;
   //onComplete={this.sendDataToServer.bind(this)}
   var pages=survey_JSON.pages;
-  var submit= (step===pages.length)? <button className="hollow button success" href="#">Submit</button>:'';
+  var submit= (step===pages.length)? <button className="hollow button success" href="#"  onClick={this.onSubmit.bind(this)}>Submit</button>:'';
   var questions=pages.map((item,index)=>
     <Step key={index}>
       <div>

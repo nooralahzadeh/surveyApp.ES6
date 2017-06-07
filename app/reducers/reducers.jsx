@@ -86,18 +86,29 @@ export var surveysReducer = (state = [], action) => {
           ...state,
           ...action.surveys
     ];
-    case 'UPDATE_SURVEY':
-      console.log(state);
+    case 'ADD_QUESTION':
           return state.map((surveyItem) => {
             if (surveyItem.id === action.id) {
+              console.log(action.question);
               return {
                 ...surveyItem,
-                ...action.updates
+                ...action.question
               };
             } else {
               return surveyItem;
             }
           });
+    case 'UPDATE_QUESTION':
+    return state.map((surveyItem) => {
+      if (surveyItem.id === action.id) {
+        return {
+          ...surveyItem,
+          ...action.update
+        };
+      } else {
+        return surveyItem;
+      }
+    });
     case 'LOGOUT':
       return [];
     default:
@@ -119,12 +130,14 @@ export var setDataReducer = (state = {}, action) => {
 
 export var updateQuestionReducer = (state = [], action) => {
   switch (action.type) {
-    case 'UPDATE_QUESTION':
+    case 'UPDATE_ANSWER':
       return action.question;
     case 'LOGOUT':
       return [];
-    case 'UPDATE_SURVEY':
+    case 'UPDATE_QUESTION':
         return [];
+    case 'ADD_QUESTION':
+            return [];
     default:
       return state;
   };

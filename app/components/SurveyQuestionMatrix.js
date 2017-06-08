@@ -14,12 +14,12 @@ class SurveyQuestionMatrix extends Component{
     var {data} =this.props;
 
     //update if it has been answred before
-
+    if (data.length> 0){
     var previous_row_values=data.filter(element => element.title === this.question.title);
     if(previous_row_values.length>0){
       this.question.rows=previous_row_values[0].rows
     }
-
+  }
         var headers = [];
         for (var i = 0; i < this.question.columns.length; i++) {
             var column = this.question.columns[i];

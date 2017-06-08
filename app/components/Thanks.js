@@ -9,8 +9,13 @@ class Thanks extends React.Component{
       var {dispatch} = this.props;
       e.preventDefault();
       dispatch(actions.startLogout());
-      hashHistory.push('/')
+      hashHistory.push('/');
     }
+  onNew(e){
+    e.preventDefault();
+    hashHistory.push('/surveys');
+  }
+
   render() {
     return (
       <div>
@@ -23,6 +28,7 @@ class Thanks extends React.Component{
             <div className="callout warning">
               <h3>Thanks for your collaboration!</h3>
             </div>
+           <button className="hollow button" href="#"  onClick={this.onNew.bind(this)}>Start another Survey</button>
          </div>
       </div>
     </div>

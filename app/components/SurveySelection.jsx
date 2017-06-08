@@ -33,11 +33,16 @@ class SurveySelection extends Component{
     if (user_descipline_data.length>0){
         //   var lastUpdate=Math.max.apply(Math,user_descipline_data.map(function(item){return item.createdAt;}))
          //var data = user_descipline_data.filter(element=> {if (element.createdAt === lastUpdate) return element});
-         console.log(user_descipline_data[0].data);
             if(user_descipline_data[0].data!==undefined){
-               dispatch(actions.setData(user_descipline_data[0].data));
+              //var exData=user_descipline_data[0].data. [need to develop get title  and rows]
+               var data =[]
+               Object.keys(user_descipline_data[0].data).forEach(function (key) {
+                    // do something with obj
+                    data.push(user_descipline_data[0].data[key]);
+                  });
+               dispatch(actions.setData(data));
              }
-      }else{
+      } else {
         dispatch(actions.startAddSurvey(discipline,{}));
       }
 

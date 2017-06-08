@@ -24,7 +24,7 @@ export class Login extends React.Component{
               <h3>Guidline</h3>
               <p> Please read the following instructions to select a category for each word pair in the next slides.</p>
               <p>Each slide contains a target word at the top and the 10-most-similar words provided by the model in the grid (predicted words). You should consider a target word and a predicted word as a pair and select one of the following categories. Each category is denoted by its abbreviation in the slide. For example for "Synonyms" you will have "SYN".</p>
-  <p>  There are 100 slides in total and in each one there are 10 word pairs. Using "Next" and "Back" you can navigate if you have chosen a category for all pairs in the slide. At the end you will find a "Submit" button to send the results.</p>
+  <p>There are 100 slides in total and in each one there are 10 word pairs. Using "Next" and "Back" you can navigate if you have chosen a category for all pairs in the slide. At the end you will find a "Submit" button to send the results.</p>
 
     <p>The categories are describes below. In all the following the examples the first word in a pair is the target word and the second one is the predicted word.</p>
 

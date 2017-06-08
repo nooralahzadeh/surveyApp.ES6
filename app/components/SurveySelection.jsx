@@ -64,7 +64,7 @@ class SurveySelection extends Component{
     var {dispatch,discipline} = this.props
     let message=null;
     if(this.state.selectedOption==="") {
-           message=<span className="label warning">Please select one of the following disiplines!</span>
+           message=<span className="label alert">Please select one of the following disciplines!</span>
         };
 
     return (
@@ -185,7 +185,7 @@ class SurveySelection extends Component{
                   </div>
                 <button className="hollow button" type="submit">NEXT</button>
             </form>
-          
+
             </div>
               </div>
             </div>

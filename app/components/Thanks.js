@@ -28,7 +28,7 @@ class Thanks extends React.Component{
             <div className="callout warning">
               <h3>Thanks for your collaboration!</h3>
             </div>
-           <button className="hollow button" href="#"  onClick={this.onNew.bind(this)}>Start another Survey</button>
+           <button className="hollow button" href="#"  onClick={this.onNew.bind(this)}>Start another survey or Edit survey</button>
          </div>
       </div>
     </div>

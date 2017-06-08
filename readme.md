@@ -1,1 +1,1 @@
-Boilerplate React App
+Survey React App

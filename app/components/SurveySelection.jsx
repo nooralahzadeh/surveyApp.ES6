@@ -27,7 +27,7 @@ class SurveySelection extends Component{
     var{discipline,surveys, dispatch}= this.props;
 
     console.log(discipline);
-
+  if(discipline!="") {
     var user_descipline_data = surveys.filter(element=> {if (element.discipline === discipline) return element});
     console.log(user_descipline_data);
     if (user_descipline_data.length>0){
@@ -46,10 +46,11 @@ class SurveySelection extends Component{
         dispatch(actions.startAddSurvey(discipline,{}));
       }
 
-     //update state with added survey
-      dispatch(actions.startAddSurveys());
+        //update state with added survey
+         dispatch(actions.startAddSurveys());
          hashHistory.push('/survey');
        }
+     }
 
   onLogout(e) {
       var {dispatch} = this.props;
@@ -60,7 +61,12 @@ class SurveySelection extends Component{
 
 
   render() {
-    var {dispatch} = this.props;
+    var {dispatch,discipline} = this.props
+    let message=null;
+    if(this.state.selectedOption==="") {
+           message=<span className="label warning">Please select one of the following disiplines!</span>
+        };
+
     return (
       <div>
         <div className="page-actions">
@@ -70,9 +76,7 @@ class SurveySelection extends Component{
           <div className="row">
             <div className="columns small-centered small-10 medium-6 large-4">
                 <div className="callout secondary">
-                  <p>
-                    Please select one of the following disiplines to do survey!
-                  </p>
+                  {message}
             <form onSubmit={this.handleFormSubmit.bind(this)}>
               <div class="radio">
                   <label>
@@ -181,6 +185,7 @@ class SurveySelection extends Component{
                   </div>
                 <button className="hollow button" type="submit">NEXT</button>
             </form>
+          
             </div>
               </div>
             </div>

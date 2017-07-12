@@ -9,11 +9,21 @@ class SurveyQuestionMatrixRow extends Component{
     this.row = props.row;
     this.isFirst = props.isFirst;
     this.handleOnChange = this.handleOnChange.bind(this);
+    this.state = {
+      checked:false
+    };
 
   }
 
   handleOnChange(event) {
         this.row.value = event.target.value;
+
+        if(this.state.checked !== event.target.checked) {
+        this.setState({
+          checked:event.target.checked
+        });
+
+     }
         this.setState({ value: this.row.value });
         var {dispatch} = this.props;
         dispatch(actions.updateAnswer(this.question));
@@ -26,6 +36,11 @@ class SurveyQuestionMatrixRow extends Component{
   //         this.isFirst = nextProps.isFirst;
   //     }
 
+  unCheckIt() {
+      this.setState({
+        checked:false
+      });
+    }
 
   render(){
       if (!this.row) return null;
@@ -37,7 +52,7 @@ class SurveyQuestionMatrixRow extends Component{
          for (var i = 0; i < this.question.columns.length; i++) {
              var column = this.question.columns[i];
              var key = "value" + i;
-             var isChecked = this.row.value == column.value;
+             var isChecked = (this.row.value == column.value && this.state.checked);
              var inputId = this.isFirst && i == 0 ? this.question.inputId : null;
              var labelStyle = { margin: '0', position: 'absolute' };
              var itemStyle={};
@@ -53,8 +68,9 @@ class SurveyQuestionMatrixRow extends Component{
              tds.push(td);
          }
 
+         var deselectButton=<td><a className="button warning tiny"   onClick={this.unCheckIt.bind(this)}>Refresh</a></td>;
 
-        return (<tr>{firstTD}{tds}</tr>);
+        return (<tr>{firstTD}{tds}{deselectButton}</tr>);
 
 
 

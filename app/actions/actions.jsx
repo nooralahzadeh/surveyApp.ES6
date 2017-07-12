@@ -132,7 +132,12 @@ export var setSurveyJsonName = (SurveyJsonName) => {
   };
 };
 
-
+export var setYrsEperience = (yrs) => {
+  return {
+    type: 'SET_YRS_EXPERIENCE',
+    yrs
+  };
+};
 export var addSurvey = (survey) => {
   return {
     type: 'ADD_SURVEY',
@@ -140,10 +145,11 @@ export var addSurvey = (survey) => {
   };
 };
 
-export var startAddSurvey = (discipline,data) => {
+export var startAddSurvey = (discipline,yrsExp,data) => {
   return (dispatch, getState) => {
     var survey = {
       discipline,
+      yrsExp,
       data,
       createdAt: moment().unix(),
       completed:false
@@ -199,6 +205,13 @@ export var updateAnswer = (question) => {
   return {
     type: 'UPDATE_ANSWER',
     question,
+  };
+};
+
+export var updateYrsExp = (yrsExp) => {
+  return {
+    type: 'UPDATE_YRSEXP',
+    yrsExp,
   };
 };
 
@@ -357,3 +370,19 @@ export var startSubmitSurvey = (id,title,rows,completed) => {
 
     }
 }
+
+
+
+
+export var startUpdateYrsExp = (id,yrsExp) => {
+  return (dispatch, getState) => {
+    var uid = getState().auth.uid;
+    var ref=firebaseRef.child(`users/${uid}/surveys/${id}`)
+        var updates = {
+          yrsExp
+        };
+        return ref.update(updates).then(() => {
+          
+          });
+        }
+    }

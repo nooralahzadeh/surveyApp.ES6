@@ -36,8 +36,10 @@ class SurveyQuestionMatrix extends Component{
             rows.push(<SurveyQuestionMatrixRow key={key} question={this.question} row={row} isFirst={i == 0} />);
         }
         return (
+
             <table>
                 <thead>
+                  <span style={{"fontSize":"14x", "color":"gray"}}>Predictions</span>
                     <tr>
                         {firstTH}
                         {headers}

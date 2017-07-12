@@ -74,6 +74,17 @@ export var surveyJsonNameReducer = (state = '', action) => {
   };
 };
 
+export var yrsExpReducer = (state = '', action) => {
+  switch (action.type) {
+    case 'SET_YRS_EXPERIENCE':
+      return action.yrs;
+   case 'LOGOUT':
+      return '';
+    default:
+      return state;
+  };
+};
+
 
 export var surveysReducer = (state = [], action) => {
   switch (action.type) {

@@ -1,36 +1,76 @@
+
 import React, {Component} from 'react';
 import * as Redux from 'react-redux';
 import * as actions from 'actions';
 var {hashHistory} = require('react-router');
+
 
 class SurveySelection extends Component{
 
   constructor(props){
     super(props);
     this.state={
-      selectedOption: props.selectedOption
+      selectedOption: props.selectedOption,
+      selectedYrs:props.selectedYrs,
+      yrsChecked:props.yrsChecked
     };
+
+  }
+
+  checkIt() {
+    this.setState({
+      yrsChecked:true
+    });
+  }
+
+  unCheckIt() {
+    this.setState({
+      yrsChecked:false
+    });
   }
 
   handleOptionChange(e) {
     this.setState({
-      selectedOption: e.target.value
+      selectedOption: e.target.value,
+      selectedYrs:'',
+      yrsChecked:false
     });
+    console.log(this.state.selectedYrs);
     var {dispatch} = this.props;
+
     dispatch(actions.setSurveyJsonName(e.target.value));
+    dispatch(actions.setYrsEperience(''));
   }
+
+  handleYrsOptionChange(e) {
+        this.setState({
+              yrsChecked:true,
+              selectedYrs:e.target.value
+            });
+      var {dispatch} = this.props;
+    dispatch(actions.setYrsEperience(e.target.value));
+  }
+
 
   handleFormSubmit(e) {
     e.preventDefault();
 
     console.log('NEXT');
-    var{discipline,surveys, dispatch}= this.props;
+    var{discipline,yrsExp,surveys, dispatch}= this.props;
 
     console.log(discipline);
-  if(discipline!="") {
+    console.log(yrsExp);
+  if(discipline!="" && yrsExp!="") {
     var user_descipline_data = surveys.filter(element=> {if (element.discipline === discipline) return element});
     console.log(user_descipline_data);
     if (user_descipline_data.length>0){
+      if(user_descipline_data[0].yrsExp!==undefined){
+        if(user_descipline_data[0].yrsExp!==this.props.yrsExp){
+          var current_survey = surveys.filter(element=> {if (element.discipline === discipline) return element});
+          var id =current_survey[0].id;
+          dispatch(actions.startUpdateYrsExp(id,this.props.yrsExp));
+        }
+      }
         //   var lastUpdate=Math.max.apply(Math,user_descipline_data.map(function(item){return item.createdAt;}))
          //var data = user_descipline_data.filter(element=> {if (element.createdAt === lastUpdate) return element});
             if(user_descipline_data[0].data!==undefined){
@@ -43,11 +83,11 @@ class SurveySelection extends Component{
                dispatch(actions.setData(data));
              }
       } else {
-        dispatch(actions.startAddSurvey(discipline,{}));
+        dispatch(actions.startAddSurvey(discipline,yrsExp,{}));
       }
 
         //update state with added survey
-         dispatch(actions.startAddSurveys());
+        dispatch(actions.startAddSurveys());
          hashHistory.push('/survey');
        }
      }
@@ -60,11 +100,30 @@ class SurveySelection extends Component{
     }
 
 
+
+
   render() {
     var {dispatch,discipline} = this.props
+    let yrsMessage=null;
+    if(this.state.selectedYrs==="" ) {
+           yrsMessage=<span className="label alert">How many years experience do you have in this area?</span>
+        };
+
+ var yrs= this.state.selectedOption!==""? (
+     <div>
+        {yrsMessage}
+           <div onChange={event => this.handleYrsOptionChange(event)}>
+                 <input  type="radio" value="0" name="yr" checked={this.state.yrsChecked && this.state.selectedYrs === '0'}/> 0
+                 <input  type="radio" value="1-4" name="yr" checked={this.state.yrsChecked && this.state.selectedYrs === '1-4'}/> 1-4
+                 <input  type="radio" value="4-8" name="yr" checked={this.state.yrsChecked && this.state.selectedYrs === '4-8'}/> 4-8
+                <input  type="radio" value="8+" name="yr" checked={this.state.yrsChecked && this.state.selectedYrs === '8+'}/> 8+
+          </div>
+        </div>
+    ):null ;
+
     let message=null;
-    if(this.state.selectedOption==="") {
-           message=<span className="label alert">Please select one of the following disciplines!</span>
+    if(this.state.selectedOption==="" ) {
+           message=<span className="label alert">Please select one of the following disciplines!!</span>
         };
 
     return (
@@ -183,6 +242,10 @@ class SurveySelection extends Component{
                     Well Workover and Intervention
                   </label>
                   </div>
+                  <br/>
+                  <div>
+                    {yrs}
+                  </div>
                 <button className="hollow button" type="submit">NEXT</button>
             </form>
 
@@ -195,7 +258,9 @@ class SurveySelection extends Component{
 }
 
 SurveySelection.defaultProps={
-  selectedOption:""
+  selectedOption:"",
+  selectedYrs:"",
+  yrsChecked:false
 };
 
 export default Redux.connect(

@@ -7,6 +7,7 @@ import * as Redux from 'react-redux';
 import * as actions from 'actions';
 import SurveyQuestionMatrix from 'SurveyQuestionMatrix';
 import { Steps, Step } from 'react-multistep-component';
+import ReactTooltip from 'react-tooltip'
 var {hashHistory} = require('react-router');
 
 
@@ -98,22 +99,22 @@ stepShouldChange() {
         </div>
         <div className="container">
             <div className="row">
-              <div className="small-3 large-3 columns "><h6>SPL: <small>Spelling Variant</small></h6></div>
-              <div className="small-3 large-3 columns "><h6>ALT: <small>Alternative or derivation form</small></h6></div>
-              <div className="small-3 large-3 columns "><h6>SYN: <small>Synonym </small></h6></div>
-                <div className="small-3 large-3 columns "><h6>ANT: <small>Antonyms </small></h6></div>
+              <div className="small-3 large-3 columns "><h6 data-tip data-for="SLP">SPL: <small>Spelling Variant</small> </h6> <ReactTooltip id='SLP' ><p>The prediction is an abbreviation or there are differences between prediction and target word because of hyphenation.</p><p> Example: commander:cmdr, bioscience: bio-science</p></ReactTooltip> </div>
+              <div className="small-3 large-3 columns "><h6 data-tip data-for="ALT">ALT: <small>Alternative or derivation form</small> </h6><ReactTooltip id='ALT' ><p>Inflections or derivations. The prediction is alternative or derived form of the target word</p> <p>Example: verb.+er ( provide:provider), Comparative degree ( strong:stronger), verb.+ation (continue:continuation), plural (student:students)</p></ReactTooltip></div>
+              <div className="small-3 large-3 columns "><h6 data-tip data-for="SYN">SYN: <small>Synonym </small></h6> <ReactTooltip id='SYN' ><p>The prediction is a synonym of the target word.</p><p> Example: sofa:couch, plan:scheme</p></ReactTooltip></div>
+                <div className="small-3 large-3 columns "><h6 data-tip data-for="ANT">ANT: <small>Antonyms </small></h6><ReactTooltip id='ANT' ><p>The prediction is an antonym of a target term. </p><p> Example: survival:death, cheap:expensive</p></ReactTooltip></div>
             </div>
             <div className="row">
-              <div className="small-3 large-3 columns "><h6>HPR: <small> Hypernyms </small></h6></div>
-              <div className="small-3 large-3 columns "><h6>HPO: <small> Hyponyms </small></h6></div>
-               <div className="small-3 large-3 columns "><h6>CHP: <small> Co-Hyponyms </small></h6></div>
-              <div className="small-3 large-3 columns "><h6>HOL: <small> Holonyms </small></h6></div>
+              <div className="small-3 large-3 columns "><h6 data-tip data-for="HPR">HPR: <small> Hypernyms </small></h6><ReactTooltip id='HPR' ><p>The prediction is a more general category of the target term.</p><p> Example: red:color, apple:fruit</p></ReactTooltip></div>
+              <div className="small-3 large-3 columns "><h6 data-tip data-for="HPO">HPO: <small> Hyponyms </small></h6><ReactTooltip id='HPO' ><p>The prediction is a more specific type of the target term.</p><p> Example: color:red, fruit:apple</p></ReactTooltip></div>
+               <div className="small-3 large-3 columns "><h6 data-tip data-for="CHP">CHP: <small> Co-Hyponyms </small></h6><ReactTooltip id='CHP' ><p>The prediction and target term share a common hypernym.</p><p> Example: red:white, apple:pear</p></ReactTooltip></div>
+              <div className="small-3 large-3 columns "><h6 data-tip data-for="HOL">HOL: <small> Holonyms </small></h6><ReactTooltip id='HOL' ><p>The prediction denotes a whole whose part is denoted by the target term.</p><p> Example: player:team, engine:car</p></ReactTooltip></div>
             </div>
 
             <div className="row">
-              <div className="small-3 large-3 columns "><h6>MRN: <small> Meronyms </small></h6></div>
-              <div className="small-3 large-3 columns "><h6>REL: <small> Related </small></h6></div>
-              <div className="small-3 large-3 columns "><h6>UNR: <small> Unrelated </small></h6></div>
+              <div className="small-3 large-3 columns "><h6 data-tip data-for="MRN">MRN: <small> Meronyms </small></h6><ReactTooltip id='MRN'><p>The prediction is a part of the target term.</p><p>Example: team:player, car:engine</p></ReactTooltip></div>
+              <div className="small-3 large-3 columns "><h6 data-tip data-for="REL">REL: <small> Related </small></h6><ReactTooltip id='REL' ><p>Prediction and target term are semantically related. </p><p>Example: goal:football, icecream:spoon</p></ReactTooltip> </div>
+              <div className="small-3 large-3 columns "><h6 data-tip data-for="UNR">UNR: <small> Unrelated </small></h6><ReactTooltip id='UNR' ><span>The association between prediction and target term is unknown, they are semantically unrelated</span></ReactTooltip> </div>
               <div className="small-3 large-3 columns "><h6></h6></div>
             </div>
           </div>
@@ -122,7 +123,7 @@ stepShouldChange() {
               <div className="columns small-3 ">
                   <div className="container">
                   <div>
-                      <h5>{item.questions[0].title}</h5>
+                      <h5><span style={{"fontSize":"14x", "color":"gray"}}> Target: </span> <small>{item.questions[0].title}</small></h5>
                       <SurveyQuestionMatrix key={index} question={item.questions[0]}/>
                   </div>
                   </div>

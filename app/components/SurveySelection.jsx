@@ -146,100 +146,29 @@ class SurveySelection extends Component{
 
                   <div class="radio">
                   <label>
-                    <input type="radio" value="drilling_fluids" checked={this.state.selectedOption === 'drilling_fluids'} onChange={this.handleOptionChange.bind(this)} />
-                    Drilling Fluids
+                    <input type="radio" value="Drilling_and_Well" checked={this.state.selectedOption === 'Drilling_and_Well'} onChange={this.handleOptionChange.bind(this)} />
+                    Drilling and Well
                   </label>
                   </div>
 
                   <div class="radio">
                   <label>
-                    <input type="radio" value="drilling" checked={this.state.selectedOption === 'drilling'} onChange={this.handleOptionChange.bind(this)} />
-                    Drilling
-                  </label>
-                  </div>
-
-                  <div class="radio">
-                  <label>
-                    <input type="radio" value="enhanced_oil_recovery" checked={this.state.selectedOption === 'enhanced_oil_recovery'} onChange={this.handleOptionChange.bind(this)} />
-                    Enhanced Oil Recovery
-                  </label>
-                  </div>
-
-                  <div class="radio">
-                  <label>
-                    <input type="radio" value="formation_evaluation" checked={this.state.selectedOption === 'formation_evaluation'} onChange={this.handleOptionChange.bind(this)} />
-                    Formation Evaluation
-                  </label>
-                  </div>
-
-                  <div class="radio">
-                  <label>
-                    <input type="radio" value="geology" checked={this.state.selectedOption === 'geology'} onChange={this.handleOptionChange.bind(this)} />
+                    <input type="radio" value="Geology" checked={this.state.selectedOption === 'Geology'} onChange={this.handleOptionChange.bind(this)} />
                     Geology
                   </label>
                   </div>
 
                   <div class="radio">
                   <label>
-                    <input type="radio" value="geophysics" checked={this.state.selectedOption === 'geophysics'} onChange={this.handleOptionChange.bind(this)} />
+                    <input type="radio" value="Geophysics" checked={this.state.selectedOption === 'Geophysics'} onChange={this.handleOptionChange.bind(this)} />
                     Geophysics
                   </label>
                   </div>
 
-
                   <div class="radio">
                   <label>
-                    <input type="radio" value="heavy_oil" checked={this.state.selectedOption === 'heavy_oil'} onChange={this.handleOptionChange.bind(this)} />
-                    Heavy Oil
-                  </label>
-                  </div>
-
-                  <div class="radio">
-                  <label>
-                    <input type="radio" value="production_logging" checked={this.state.selectedOption === 'production_logging'} onChange={this.handleOptionChange.bind(this)} />
-                    Production Logging
-                  </label>
-                  </div>
-
-                  <div class="radio">
-                  <label>
-                    <input type="radio" value="production_testing" checked={this.state.selectedOption === 'production_testing'} onChange={this.handleOptionChange.bind(this)} />
-                    Production Testing
-                  </label>
-                  </div>
-
-                  <div class="radio">
-                  <label>
-                    <input type="radio" value="reservoir_characterization" checked={this.state.selectedOption === 'reservoir_characterization'} onChange={this.handleOptionChange.bind(this)} />
-                    Reservoir Characterization
-                  </label>
-                  </div>
-
-                  <div class="radio">
-                  <label>
-                    <input type="radio" value="shale_gas" checked={this.state.selectedOption === 'shale_gas'} onChange={this.handleOptionChange.bind(this)} />
-                    Shale Gas
-                  </label>
-                  </div>
-
-                  <div class="radio">
-                  <label>
-                    <input type="radio" value="well_completions" checked={this.state.selectedOption === 'well_completions'} onChange={this.handleOptionChange.bind(this)} />
-                    Well Completions
-                  </label>
-                  </div>
-
-                  <div class="radio">
-                  <label>
-                    <input type="radio" value="well_testing" checked={this.state.selectedOption === 'well_testing'} onChange={this.handleOptionChange.bind(this)} />
-                    Well Testing
-                  </label>
-                  </div>
-
-                  <div class="radio">
-                  <label>
-                    <input type="radio" value="well_workover_and_intervention" checked={this.state.selectedOption === 'well_workover_and_intervention'} onChange={this.handleOptionChange.bind(this)} />
-                    Well Workover and Intervention
+                    <input type="radio" value="IOR" checked={this.state.selectedOption === 'IOR'} onChange={this.handleOptionChange.bind(this)} />
+                    IOR
                   </label>
                   </div>
                   <br/>

@@ -79,6 +79,7 @@ stepShouldChange() {
   render() {
 
     var {discipline,data,step,dispatch} = this.props;
+
     const survey_JSON= require(`../../data/${discipline}.json`);
   // Survey.defaultBootstrapCss.navigationButton = "btn btn-green";
   // Survey.Survey.cssType = "bootstrap";

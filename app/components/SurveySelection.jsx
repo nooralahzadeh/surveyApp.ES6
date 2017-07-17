@@ -146,28 +146,28 @@ class SurveySelection extends Component{
 
                   <div class="radio">
                   <label>
-                    <input type="radio" value="Drilling_and_Well" checked={this.state.selectedOption === 'Drilling_and_Well'} onChange={this.handleOptionChange.bind(this)} />
+                    <input type="radio" value="drilling_and_well" checked={this.state.selectedOption === 'drilling_and_well'} onChange={this.handleOptionChange.bind(this)} />
                     Drilling and Well
                   </label>
                   </div>
 
                   <div class="radio">
                   <label>
-                    <input type="radio" value="Geology" checked={this.state.selectedOption === 'Geology'} onChange={this.handleOptionChange.bind(this)} />
+                    <input type="radio" value="geology" checked={this.state.selectedOption === 'geology'} onChange={this.handleOptionChange.bind(this)} />
                     Geology
                   </label>
                   </div>
 
                   <div class="radio">
                   <label>
-                    <input type="radio" value="Geophysics" checked={this.state.selectedOption === 'Geophysics'} onChange={this.handleOptionChange.bind(this)} />
+                    <input type="radio" value="geophysics" checked={this.state.selectedOption === 'geophysics'} onChange={this.handleOptionChange.bind(this)} />
                     Geophysics
                   </label>
                   </div>
 
                   <div class="radio">
                   <label>
-                    <input type="radio" value="IOR" checked={this.state.selectedOption === 'IOR'} onChange={this.handleOptionChange.bind(this)} />
+                    <input type="radio" value="ior" checked={this.state.selectedOption === 'ior'} onChange={this.handleOptionChange.bind(this)} />
                     IOR
                   </label>
                   </div>
